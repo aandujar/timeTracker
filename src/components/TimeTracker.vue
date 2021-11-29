@@ -1,5 +1,6 @@
 <template>
   <div class="time-tracker">
+    <Loader v-if="loading" />
     <Button pause />
     <Button signed />
     <Button />
@@ -8,10 +9,25 @@
 
 <script>
 import Button from "@/components/Button.vue";
+import Loader from "@/components/Loader.vue";
+import * as service from "@/service/actions.js";
 
 export default {
   name: "TimeTracker",
-  components: { Button },
+  components: { Button, Loader },
+  data() {
+    return {
+      loading: true,
+    };
+  },
+  created() {
+    return new Promise((resolve) => {
+      service.getStatus().finally(() => {
+        setTimeout(() => this.loading = false, 500);
+        resolve();
+      });
+    });
+  },
 };
 </script>
 
