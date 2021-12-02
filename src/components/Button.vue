@@ -3,11 +3,11 @@
     <button
       class="button__item"
       :class="{
-        'button__item--paused': pause,
-        'button__item--signed': signed,
-        'button__item--no-signed': !pause && !signed,
+        'button__item--signed': isOnline,
+        'button__item--no-signed': !isOnline,
       }"
       type="button"
+      @click="clicked"
     >
       {{ getText }}
     </button>
@@ -18,12 +18,16 @@
 export default {
   name: "Button",
   props: {
-    pause: { type: Boolean, required: false, default: false },
-    signed: { type: Boolean, required: false, default: false },
+    isOnline: { type: Boolean, required: false, default: false }
   },
   computed: {
     getText() {
-      return this.pause ? "Pausar" : this.signed ? "Salir" : "Entrar";
+      return this.isOnline ? "Salir" : "Entrar";
+    },
+  },
+  methods: {
+    clicked() {
+      this.$emit("clicked");
     },
   },
 };
@@ -50,11 +54,11 @@ export default {
     }
 
     &--signed {
-      background-color: #5ebea3;
+      background-color: #ffab91;
     }
 
     &--no-signed {
-      background-color: #ffab91;
+      background-color: #5ebea3;
     }
   }
 }

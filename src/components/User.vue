@@ -2,10 +2,10 @@
 <template>
   <div class="user">
     <div class="user__name" @mouseenter="toogleMenu">
-      Kelly Pierce<Icon icon="down" />
+      {{ user ? user : "No hay usuario" }}<Icon icon="down" />
     </div>
     <div class="user__name__menus" @mouseleave="hideMenus">
-        <!-- submenu -->
+      <!-- submenu -->
       <div
         class="user__name__menus__submenu"
         :class="{
@@ -88,6 +88,7 @@
           class="
             user__name__menus__menu__item user__name__menus__menu__item--border
           "
+          :class="{ 'user__name__menus__menu__item--hided': !showMenu }"
           @mouseenter="shownSubmenu"
         >
           <Icon icon="left" class="user__name__menus__menu__item__icon" />
@@ -129,6 +130,7 @@ import Icon from "@/components/Icon.vue";
 export default {
   name: "User",
   components: { Icon },
+  props: { user: { type: String, required: true } },
   data() {
     return {
       showMenu: false,
@@ -212,6 +214,10 @@ export default {
           flex-direction: row;
           align-items: center;
 
+          &--hided {
+            display: none;
+          }
+
           &:hover {
             background-color: #5ebea3;
           }
@@ -265,7 +271,7 @@ export default {
           height: 0px;
           opacity: 0;
           display: none;
-          transition: display 1.5s,opacity 0.5s, height 1s;
+          transition: display 1.5s, opacity 0.5s, height 1s;
           border: none;
         }
 
@@ -326,17 +332,18 @@ export default {
         }
       }
     }
-@media (max-width: 700px) {
-    &__menus {
-      position: absolute;
-      z-index: 15;
-      display: flex;
-      flex-direction: row;
-      width: 460px;
-      padding-top: 39px;
-      margin-left: -325px;
-      height: 220px;
-  }}}
-
+    @media (max-width: 700px) {
+      &__menus {
+        position: absolute;
+        z-index: 15;
+        display: flex;
+        flex-direction: row;
+        width: 460px;
+        padding-top: 39px;
+        margin-left: -325px;
+        height: 220px;
+      }
+    }
+  }
 }
 </style>

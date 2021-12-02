@@ -21,6 +21,6 @@ export default {
   width: 100vw;
   display: flex;
   justify-content: center;
- // background-color: #6699cc;
+  background-color: #dbffff;
 }
 </style>

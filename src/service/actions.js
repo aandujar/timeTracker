@@ -7,16 +7,18 @@ export function getStatus() {
     })
 }
 
-export function clockIn() {
+export function clockIn(data) {
     return connection.$axios({
         url: `/clock-in`,
-        method: 'POST'
+        method: 'POST',
+        data: data
     })
 }
 
 export function clockOut() {
     return connection.$axios({
         url: `/clock-in`,
-        method: 'POST'
+        method: 'POST',
+        data: data
     })
 }
